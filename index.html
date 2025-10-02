@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Deepthi Kantam - Portfolio</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+  --neon-color: #fff;
+  --main-bg: #111;
+  --header-bg: #1a1a1a;
+  --text-color: #fff;
+}
+
+/* Reset & Body */
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family:"Roboto", sans-serif; background:var(--main-bg); color:var(--text-color); scroll-behavior: smooth; display:flex; flex-direction:column; min-height:100vh; overflow-x:hidden; }
+.container { max-width:1100px; width:95%; margin:0 auto; padding:0 20px; text-align:center; }
+section { padding:80px 0; position:relative; opacity:0; transform:translateY(30px); transition:all 0.8s ease-out; text-align:center; }
+section.visible { opacity:1; transform:translateY(0); }
+
+/* Headings */
+h2 { font-family:"Orbitron", sans-serif; font-size:48px; color:var(--text-color); text-shadow:0 0 4px var(--neon-color); position:relative; margin-bottom:60px; }
+h2::after { content:""; position:absolute; bottom:-12px; left:50%; width:80%; height:2px; background:var(--neon-color); transform:translateX(-50%); }
+
+/* Navbar */
+.navbar { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; padding:15px 20px; background:var(--header-bg); position:sticky; top:0; width:100%; border-bottom:2px solid #333; z-index:1000; }
+.nav-left { font-family:"Orbitron", sans-serif; font-size:28px; color:var(--text-color); text-shadow:0 0 4px var(--neon-color); }
+.nav-right a { margin:5px 10px; text-decoration:none; color:var(--text-color); font-weight:500; font-size:16px; transition:all 0.3s; word-wrap:break-word; }
+.nav-right a:hover { text-shadow:0 0 4px var(--neon-color); }
+
+/* About Section */
+#about .container { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:40px; }
+#about .about-description { flex:1; font-size:20px; line-height:1.6; text-align:center; }
+
+/* Monitor Styling */
+.monitor { margin:0 auto; padding:60px 30px; max-width:400px; width:90%; background:rgba(0,0,0,0.35); border:2px solid #333; border-radius:20px; box-shadow:0 0 15px rgba(255,255,255,0.15); display:flex; flex-direction:column; align-items:center; text-align:center; transition:all 0.3s ease; }
+.monitor:hover { transform:translateY(-5px) scale(1.03); box-shadow:0 0 20px rgba(255,255,255,0.25); }
+.monitor-name { font-size:36px; font-family:"Orbitron", sans-serif; color:var(--text-color); text-shadow:0 0 4px var(--neon-color); margin-bottom:20px; font-weight:700; }
+.monitor-image-placeholder { width:200px; height:200px; background:#222; border-radius:50%; margin-bottom:20px; display:flex; justify-content:center; align-items:center; overflow:hidden; }
+.monitor-image-placeholder img { width:100%; height:100%; border-radius:50%; object-fit:cover; }
+.monitor p { margin-top:12px; font-weight:600; font-size:22px; line-height:1.4; }
+
+/* Skills Grid */
+.skills-grid { display:flex; flex-direction:column; align-items:center; gap:25px; }
+.skill-row { display:flex; justify-content:center; gap:25px; flex-wrap:wrap; }
+.skill-card { border:2px solid #333; border-radius:18px; padding:50px 20px; display:flex; flex-direction:column; align-items:center; cursor:pointer; transition:all 0.3s; min-width:140px; }
+.skill-card i { font-size:50px; color:var(--text-color); }
+.skill-name { opacity:0; font-size:16px; margin-top:12px; transition:opacity 0.3s; }
+.skill-card:hover { border-color: var(--neon-color); box-shadow:0 0 20px var(--neon-color); transform:translateY(-5px) scale(1.1); }
+.skill-card:hover .skill-name { opacity:1; }
+
+/* Neon Glow Animation */
+@keyframes neonGlow { 0%,20%{text-shadow:none;color:var(--text-color);} 50%{text-shadow:0 0 8px var(--neon-color),0 0 16px var(--neon-color); color:var(--neon-color);} 100%{text-shadow:none;color:var(--text-color);} }
+.skill-card.glow i { animation: neonGlow 1s ease-in-out forwards; }
+
+/* Projects */
+.projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:50px; justify-items:center; }
+.project-card { background:rgba(0,0,0,0.25); border:2px solid #333; padding:40px 20px 80px 20px; border-radius:18px; cursor:pointer; transition:all 0.3s; text-align:center; width:100%; max-width:400px; display:flex; flex-direction:column; justify-content:space-between; position:relative; }
+.project-card h3 { font-size:32px; margin-bottom:16px; text-shadow:0 0 4px var(--neon-color); }
+.project-card p { font-size:20px; margin-bottom:12px; flex:1; }
+.project-card button { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); padding:12px 28px; font-size:16px; cursor:pointer; transition:all 0.3s; border:none; border-radius:12px; background:#222; color:var(--text-color); }
+.project-card:hover { transform:translateY(-8px); box-shadow:0 0 25px var(--neon-color); border-color:var(--neon-color); }
+.project-card:hover button { background:var(--neon-color); color:#111; transform:translateX(-50%) scale(1.05); }
+
+/* Achievements */
+.achievement-pyramid { display:flex; flex-direction:column; align-items:center; gap:20px; }
+.achievement-row { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+.pill { border:2px solid #333; padding:16px 24px; border-radius:28px; font-size:16px; transition:all 0.3s; }
+.pill:hover { border-color:var(--neon-color); text-shadow:0 0 4px var(--neon-color); transform:scale(1.1); }
+
+/* DSA Profiles */
+.dsa-list { display:flex; justify-content:center; flex-wrap:wrap; gap:50px; margin-top:40px; }
+.dsa-btn { width:110px; height:110px; border:2px solid #333; border-radius:50%; display:flex; justify-content:center; align-items:center; cursor:pointer; transition:all 0.3s; position:relative; }
+.dsa-btn:hover { box-shadow:0 0 12px var(--neon-color); transform:translateY(-3px) scale(1.1); }
+.dsa-name-hover { position:absolute; bottom:-26px; font-size:14px; opacity:0; transition:opacity 0.3s; }
+.dsa-btn:hover .dsa-name-hover { opacity:1; }
+
+/* Contact */
+#contact .contact-links a { margin:0 15px; font-size:32px; color:var(--text-color); transition:all 0.3s; }
+#contact .contact-links a:hover { text-shadow:0 0 4px var(--neon-color); transform:translateY(-3px) scale(1.05); }
+
+/* Footer */
+footer { margin-top:auto; background:var(--header-bg); padding:16px 10px; text-align:center; font-size:14px; border-top:1px solid #333; }
+.footer-links a { margin:0 10px; color:var(--text-color); }
+.footer-links a:hover { text-shadow:0 0 4px var(--neon-color); }
+
+/* Responsive */
+@media(max-width:900px){ .monitor{width:90%;padding:40px 20px;} .skill-card{min-width:120px;padding:40px 15px;} .project-card{max-width:90%; padding:40px 20px 80px 20px;} .dsa-btn{width:90px;height:90px;} }
+
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script type="text/babel">
+const DSALogo = ({ logo }) => <img src={logo} alt="DSA Logo" style={{width:"40px",height:"40px"}} />;
+
+const skillData = [
+  {name:"C", icon:"fas fa-terminal"}, {name:"Java", icon:"fab fa-java"}, {name:"Python", icon:"fab fa-python"},
+  {name:"MongoDB", icon:"fas fa-database"}, {name:"Express", icon:"fas fa-cube"}, {name:"Node.js", icon:"fab fa-node-js"},
+  {name:"React", icon:"fab fa-react"}, {name:"PyTorch", icon:"fas fa-chart-line"}, {name:"AI", icon:"fas fa-brain"},
+  {name:"NLP", icon:"fas fa-language"}, {name:"LLM", icon:"fas fa-robot"}, {name:"Streamlit", icon:"fas fa-sliders-h"},
+  {name:"HuggingFace", icon:"fas fa-smile"}, {name:"SQL", icon:"fas fa-database"}, {name:"HTML/CSS", icon:"fab fa-html5"},
+  {name:"JavaScript", icon:"fab fa-js"}, {name:".NET", icon:"fas fa-laptop-code"}, {name:"Git", icon:"fab fa-git-alt"},
+  {name:"Colab", icon:"fas fa-circle-notch"}, {name:"VSCode", icon:"fas fa-file-code"}, {name:"Flask", icon:"fas fa-flask"}
+];
+
+const dsaProfiles = [
+  {name:"LeetCode", url:"https://leetcode.com/deepthi_kantam", logo:"https://cdn.simpleicons.org/leetcode/ffffff"},
+  {name:"CodeChef", url:"https://www.codechef.com/users/deepthi_kantam", logo:"https://cdn.simpleicons.org/codechef/ffffff"},
+  {name:"CodeForces", url:"https://codeforces.com/profile/deepthi_kantam", logo:"https://cdn.simpleicons.org/codeforces/ffffff"},
+  {name:"HackerRank", url:"https://www.hackerrank.com/deepthi_kantam", logo:"https://cdn.simpleicons.org/hackerrank/ffffff"},
+  {name:"InterviewBit", url:"https://www.interviewbit.com/profile/deepthi_kantam", logo:"https://cdn.simpleicons.org/hackerearth/ffffff"}
+];
+
+const githubURL="https://github.com/deepthikantam";
+const linkedInURL="https://www.linkedin.com/in/deepthi-kantam-6306ab2b8";
+
+const projectData = [
+  {title:"Automated Resume Analyzer", desc:"NLP tool that scores resumes vs JD"},
+  {title:"Meet Summarizer", desc:"LLM meeting transcription & summary"},
+  {title:"RouteMate", desc:"Connecting people traveling in same direction reduces pollution and increases efficiency"},
+  {title:"Portfolio Website", desc:"Personal portfolio with neon styling"}
+];
+
+const achievements = ["Hackathon Finalist","GDG Content Lead","IIC Innovation Ambassador","AICTE IDEA LAB Member","Young Genius"];
+
+const ProjectCard = ({project}) => (
+  <div className="project-card">
+    <h3>{project.title}</h3>
+    <p>{project.desc}</p>
+    <button onClick={()=>window.open(githubURL,"_blank")}>View Code</button>
+  </div>
+);
+
+const Footer = () => {
+  const [dateTime,setDateTime]=React.useState(new Date());
+  React.useEffect(()=>{ const timer=setInterval(()=>setDateTime(new Date()),1000); return ()=>clearInterval(timer); },[]);
+  return (
+    <footer>
+      <div className="footer-links">
+        <a href={githubURL} target="_blank"><i className="fab fa-github"></i></a>
+        <a href={linkedInURL} target="_blank"><i className="fab fa-linkedin"></i></a>
+      </div>
+      <p>Email: <a href="mailto:deepthikantam3388@gmail.com" style={{color:'var(--text-color)', textDecoration:'none'}}>deepthikantam3388@gmail.com</a></p>
+      <p>📍 Tanuku</p>
+      <p>{dateTime.toLocaleString()}</p>
+      <p>© {dateTime.getFullYear()} Deepthi Kantam</p>
+    </footer>
+  );
+};
+
+const Portfolio = () => {
+  const pyramidRows=[skillData.slice(0,10), skillData.slice(10)];
+  const topAchievements=achievements.slice(0,3);
+  const bottomAchievements=achievements.slice(3);
+
+  React.useEffect(()=>{
+      const sections=document.querySelectorAll("section");
+      const observer=new IntersectionObserver(entries=>{ entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("visible"); }); },{threshold:0.1});
+      sections.forEach(section=>observer.observe(section));
+  },[]);
+
+  React.useEffect(()=>{
+      const skillCards=document.querySelectorAll(".skill-card");
+      skillCards.forEach((card,i)=>{ setTimeout(()=>card.classList.add("glow"), i*150); });
+  },[]);
+
+  return (
+    <div>
+      <nav className="navbar">
+        <div className="nav-left">DEEPTHI KANTAM</div>
+        <div className="nav-right">
+          <a href="#about">ABOUT</a>
+          <a href="#skills">SKILLS</a>
+          <a href="#projects">PROJECTS</a>
+          <a href="#achievements">ACHIEVEMENTS</a>
+          <a href="#dsa">DSA</a>
+          <a href="#contact">CONTACT</a>
+        </div>
+      </nav>
+
+      <section id="about">
+        <div className="container">
+          <div className="about-description">
+            Hi, I’m Deepthi Kantam 👩‍💻 — a pre-final year CSE student with <b>honors in AI</b>, exploring AI, ML, LLMs, and <b>Full Stack Development</b> to create impactful projects.
+          </div>
+          <div className="monitor">
+            <div className="monitor-name">DEEPTHI KANTAM</div>
+            <div className="monitor-image-placeholder">
+              <img src="https://i.postimg.cc/cJh05XVh/deepuuu.jpg" alt="Profile"/>
+            </div>
+            <p>AI/Full Stack Developer</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div className="container">
+          <h2>Skills</h2>
+          <div className="skills-grid">
+            {pyramidRows.map((row,i)=>(
+              <div key={i} className="skill-row">
+                {row.map((skill,j)=>(
+                  <div key={j} className="skill-card"><i className={skill.icon}></i><div className="skill-name">{skill.name}</div></div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div className="container">
+          <h2>Projects</h2>
+          <div className="projects-grid">
+            {projectData.map((p,i)=><ProjectCard key={i} project={p}/>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="achievements">
+        <div className="container">
+          <h2>Achievements</h2>
+          <div className="achievement-pyramid">
+            <div className="achievement-row">{topAchievements.map((ach,i)=><span key={i} className="pill">🏆 {ach}</span>)}</div>
+            <div className="achievement-row">{bottomAchievements.map((ach,i)=><span key={i} className="pill">🏁 {ach}</span>)}</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dsa">
+        <div className="container">
+          <h2>DSA Profiles</h2>
+          <div className="dsa-list">{dsaProfiles.map((p,i)=>(<div key={i} className="dsa-btn" onClick={()=>window.open(p.url,"_blank")}><DSALogo logo={p.logo}/><span className="dsa-name-hover">{p.name}</span></div>))}</div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div className="container">
+          <h2>Contact</h2>
+          <p>Let’s connect and collaborate 🚀</p>
+          <div className="contact-links">
+            <a href="mailto:deepthikantam3388@gmail.com"><i className="fas fa-envelope"></i></a>
+            <a href={githubURL} target="_blank"><i className="fab fa-github"></i></a>
+            <a href={linkedInURL} target="_blank"><i className="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <Footer/>
+    </div>
+  );
+};
+
+ReactDOM.render(<Portfolio/>, document.getElementById("root"));
+</script>
+</body>
+</html>
